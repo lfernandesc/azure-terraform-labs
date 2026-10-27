@@ -4,8 +4,8 @@ Classic VNet peering is not transitive. Reproduce an A-to-B failure, then add sy
 
 Guides on the blog:
 
-- PT: https://lucasfernandes-dev.pages.dev/labs/azure-hub-spoke-routing/
-- EN: https://lucasfernandes-dev.pages.dev/en/labs/azure-hub-spoke-routing/
+- PT: https://lucas.fernandesc.workers.dev/labs/azure-hub-spoke-routing/
+- EN: https://lucas.fernandesc.workers.dev/en/labs/azure-hub-spoke-routing/
 
 ## Scope and costs
 

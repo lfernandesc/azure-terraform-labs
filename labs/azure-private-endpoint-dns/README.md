@@ -4,8 +4,8 @@ A deliberate missing-VNet-link DNS failure, with private Blob Storage and a mana
 
 Guides / Guias:
 
-- Português: https://lucasfernandes-dev.pages.dev/labs/azure-private-endpoint-dns/
-- English: https://lucasfernandes-dev.pages.dev/en/labs/azure-private-endpoint-dns/
+- Português: https://lucas.fernandesc.workers.dev/labs/azure-private-endpoint-dns/
+- English: https://lucas.fernandesc.workers.dev/en/labs/azure-private-endpoint-dns/
 
 ## Safety and scope
 
