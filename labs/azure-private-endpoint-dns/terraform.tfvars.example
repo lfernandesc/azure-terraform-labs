@@ -1,0 +1,5 @@
+subscription_id         = "00000000-0000-0000-0000-000000000000"
+location                = "westeurope"
+vm_size                 = "Standard_B1s"
+ssh_public_key          = "ssh-ed25519 REPLACE_WITH_YOUR_PUBLIC_KEY"
+enable_private_dns_link = false
