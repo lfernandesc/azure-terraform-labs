@@ -29,3 +29,15 @@ variable "enable_private_dns_link" {
   type        = bool
   default     = false
 }
+
+variable "enable_service_endpoint_comparison" {
+  description = "Add a second Storage Account using the classic Microsoft.Storage service endpoint and a default-deny subnet firewall. Adds billable Storage; private account stays private."
+  type        = bool
+  default     = false
+}
+
+variable "allow_service_endpoint_subnet" {
+  description = "Allow only the client subnet on the comparison account. False removes that network rule without changing DNS or RBAC."
+  type        = bool
+  default     = true
+}

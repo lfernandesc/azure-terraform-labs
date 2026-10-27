@@ -3,3 +3,7 @@ location                = "westeurope"
 vm_size                 = "Standard_B1s"
 ssh_public_key          = "ssh-ed25519 REPLACE_WITH_YOUR_PUBLIC_KEY"
 enable_private_dns_link = false
+
+# Optional stage after fixing the Private Endpoint DNS:
+enable_service_endpoint_comparison = false
+allow_service_endpoint_subnet      = true
