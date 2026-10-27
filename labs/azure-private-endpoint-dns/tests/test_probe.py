@@ -60,6 +60,10 @@ class ProbeTests(unittest.TestCase):
         result = self.run_probe('broken', '10.42.2.4', '403', '200')
         self.assertNotEqual(result.returncode, 0)
 
+    def test_mixed_dns_does_not_prove_consistent_private_resolution(self):
+        result = self.run_probe('fixed', '10.42.2.4\n20.60.1.2', '200', '200')
+        self.assertNotEqual(result.returncode, 0)
+
     def test_private_network_timeout_is_inconclusive(self):
         result = self.run_probe('broken', '203.0.113.10', '403', '000')
         self.assertEqual(result.returncode, 2)

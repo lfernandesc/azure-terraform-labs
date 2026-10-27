@@ -13,3 +13,18 @@ output "private_ip" {
 output "dns_link_enabled" {
   value = var.enable_private_dns_link
 }
+
+output "client_subnet_id" {
+  value = azurerm_subnet.client.id
+}
+output "probe_nic_name" {
+  value = azurerm_network_interface.probe.name
+}
+output "service_endpoint_comparison" {
+  value = var.enable_service_endpoint_comparison ? {
+    account      = azapi_resource.service_storage[0].name
+    id           = azapi_resource.service_storage[0].id
+    subnet_id    = azurerm_subnet.client.id
+    subnet_allow = var.allow_service_endpoint_subnet
+  } : null
+}

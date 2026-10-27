@@ -30,6 +30,7 @@ resource "azurerm_subnet" "client" {
   resource_group_name  = azurerm_resource_group.lab.name
   virtual_network_name = azurerm_virtual_network.lab.name
   address_prefixes     = ["10.42.1.0/24"]
+  service_endpoints    = var.enable_service_endpoint_comparison ? ["Microsoft.Storage"] : []
 }
 
 resource "azurerm_subnet" "endpoint" {
@@ -197,6 +198,48 @@ resource "azurerm_linux_virtual_machine" "probe" {
 
 resource "azurerm_role_assignment" "blob_reader" {
   scope                            = azapi_resource.storage.id
+  role_definition_name             = "Storage Blob Data Reader"
+  principal_id                     = azurerm_linux_virtual_machine.probe.identity[0].principal_id
+  principal_type                   = "ServicePrincipal"
+  skip_service_principal_aad_check = true
+}
+
+# Optional comparison uses a DIFFERENT account: public service endpoint + subnet ACL.
+# It never changes the private account's publicNetworkAccess=Disabled.
+resource "azapi_resource" "service_storage" {
+  count     = var.enable_service_endpoint_comparison ? 1 : 0
+  type      = "Microsoft.Storage/storageAccounts@2023-05-01"
+  name      = "stse${local.suffix}"
+  parent_id = azurerm_resource_group.lab.id
+  location  = azurerm_resource_group.lab.location
+  tags      = local.tags
+  body = {
+    kind = "StorageV2"
+    sku  = { name = "Standard_LRS" }
+    properties = {
+      accessTier                   = "Hot"
+      publicNetworkAccess          = "Enabled"
+      allowSharedKeyAccess         = false
+      allowBlobPublicAccess        = false
+      defaultToOAuthAuthentication = true
+      minimumTlsVersion            = "TLS1_2"
+      supportsHttpsTrafficOnly     = true
+      networkAcls = {
+        defaultAction = "Deny"
+        bypass        = "None"
+        ipRules       = []
+        virtualNetworkRules = var.allow_service_endpoint_subnet ? [{
+          id     = azurerm_subnet.client.id
+          action = "Allow"
+        }] : []
+      }
+    }
+  }
+}
+
+resource "azurerm_role_assignment" "service_blob_reader" {
+  count                            = var.enable_service_endpoint_comparison ? 1 : 0
+  scope                            = azapi_resource.service_storage[0].id
   role_definition_name             = "Storage Blob Data Reader"
   principal_id                     = azurerm_linux_virtual_machine.probe.identity[0].principal_id
   principal_type                   = "ServicePrincipal"

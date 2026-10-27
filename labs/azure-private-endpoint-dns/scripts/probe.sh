@@ -46,7 +46,7 @@ if [[ "$forced" != 200 ]]; then
 fi
 if [[ "$mode" == broken ]] && ! grep -Fxq "$private_ip" <<< "$resolved" && [[ "$normal" == 403 ]]; then
   echo 'LAB_RESULT=PASS: DNS fault reproduced; the same identity succeeds over the private path.'
-elif [[ "$mode" == fixed ]] && grep -Fxq "$private_ip" <<< "$resolved" && [[ "$normal" == 200 ]]; then
+elif [[ "$mode" == fixed ]] && [[ "$resolved" == "$private_ip" && "$normal" == 200 ]]; then
   echo 'LAB_RESULT=PASS: DNS returns the PE address and the normal HTTPS request succeeds.'
 else
   echo 'LAB_RESULT=FAIL: observations do not match the expected mode.'

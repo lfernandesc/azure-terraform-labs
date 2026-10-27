@@ -6,7 +6,7 @@ Each lab starts with an intentional failure, uses diagnostic evidence to isolate
 
 | Lab | Problem | Correction |
 | --- | --- | --- |
-| [Private Endpoint DNS](labs/azure-private-endpoint-dns/) | Private Blob endpoint exists, but the client resolves the public endpoint | Link the private DNS zone to the client VNet |
+| [Private vs Service Endpoint](labs/azure-private-endpoint-dns/) | Compare a PE DNS failure with subnet-restricted access to a second account | Fix private DNS; verify Service Endpoint routes and an allow/deny/allow sequence |
 | [Hub-Spoke routing](labs/azure-hub-spoke-routing/) | Two spokes cannot communicate through non-transitive VNet peering | Add symmetric UDRs through a disposable Linux NVA |
 
 ## Start / Começar
