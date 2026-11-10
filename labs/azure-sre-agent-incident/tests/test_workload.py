@@ -38,7 +38,7 @@ class WorkloadTests(unittest.TestCase):
         with redirect_stdout(io.StringIO()), serve(server.Config('backend', delay_ms=350)) as backend:
             with serve(server.Config('api', backend_url=backend, timeout_ms=100)) as api:
                 rid = 'broken-test'
-                health = probe.request(api+'/healthz', rid)
+                health = probe.request(api+'/health', rid)
                 checkout = probe.request(api+'/checkout', rid)
                 probe.check(health, checkout, rid, 'broken')
                 self.assertEqual(checkout[0], 503)
@@ -47,7 +47,7 @@ class WorkloadTests(unittest.TestCase):
         with redirect_stdout(io.StringIO()), serve(server.Config('backend', delay_ms=350)) as backend:
             with serve(server.Config('api', backend_url=backend, timeout_ms=2000)) as api:
                 rid = 'fixed-test'
-                probe.check(probe.request(api+'/healthz',rid),probe.request(api+'/checkout',rid),rid,'fixed')
+                probe.check(probe.request(api+'/health',rid),probe.request(api+'/checkout',rid),rid,'fixed')
     def test_unknown_backend_path_is_not_the_intended_timeout(self):
         with redirect_stdout(io.StringIO()), serve(server.Config('backend')) as backend:
             status, body = probe.request(backend+'/unknown', 'unknown-path')

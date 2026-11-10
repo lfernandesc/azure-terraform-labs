@@ -50,7 +50,7 @@ def main():
     try:
         for _ in range(args.samples):
             rid, started = str(uuid4()), time.monotonic()
-            health = request(args.url.rstrip("/") + "/healthz", rid)
+            health = request(args.url.rstrip("/") + "/health", rid)
             checkout = request(args.url.rstrip("/") + "/checkout", rid)
             check(health, checkout, rid, args.expected_mode)
             records.append({"request_id": rid, "health_status": health[0], "checkout_status": checkout[0],
