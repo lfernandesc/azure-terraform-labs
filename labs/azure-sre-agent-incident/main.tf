@@ -72,7 +72,7 @@ resource "azurerm_container_app" "backend" {
       readiness_probe {
         transport               = "HTTP"
         port                    = 8080
-        path                    = "/healthz"
+        path                    = "/health"
         interval_seconds        = 5
         success_count_threshold = 1
       }
@@ -121,7 +121,7 @@ resource "azurerm_container_app" "api" {
       readiness_probe {
         transport               = "HTTP"
         port                    = 8080
-        path                    = "/healthz"
+        path                    = "/health"
         interval_seconds        = 5
         success_count_threshold = 1
       }

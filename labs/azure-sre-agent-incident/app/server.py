@@ -55,7 +55,7 @@ def handler_for(config):
             raw_id = self.headers.get("X-Lab-Request-Id", "")
             request_id = raw_id if re.fullmatch(r"[a-zA-Z0-9-]{1,64}", raw_id) else str(uuid4())
             base = {"service": service, "request_id": request_id, "revision": config.revision}
-            if self.path == "/healthz":
+            if self.path == "/health":
                 self.respond(200, {**base, "result": "alive"})
                 return
             started = time.monotonic()
