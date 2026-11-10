@@ -1,0 +1,6 @@
+subscription_id       = "00000000-0000-0000-0000-000000000000"
+location              = "westeurope"
+dependency_timeout_ms = 2000
+# After creating the agent, optionally add its UAMI principal OBJECT ID:
+# agent_principal_id = "00000000-0000-0000-0000-000000000000"
+# The default image is digest-pinned. Review future digest updates separately from the experiment.

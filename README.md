@@ -8,6 +8,7 @@ Each lab starts with an intentional failure, uses diagnostic evidence to isolate
 | --- | --- | --- |
 | [Private vs Service Endpoint](labs/azure-private-endpoint-dns/) | Compare a PE DNS failure with subnet-restricted access to a second account | Fix private DNS; verify Service Endpoint routes and an allow/deny/allow sequence |
 | [Hub-Spoke routing](labs/azure-hub-spoke-routing/) | Two spokes cannot communicate through non-transitive VNet peering | Add symmetric UDRs through a disposable Linux NVA |
+| [Azure SRE Agent](labs/azure-sre-agent-incident/) | Health is green but checkout fails due to a dependency timeout | Investigate connected evidence; restore the timeout through a reviewed Terraform change |
 
 ## Start / Começar
 

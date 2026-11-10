@@ -1,0 +1,10 @@
+output "api_url" { value = "https://${azurerm_container_app.api.ingress[0].fqdn}" }
+output "resource_group" { value = azurerm_resource_group.workload.name }
+output "resource_group_id" { value = azurerm_resource_group.workload.id }
+output "agent_resource_group" { value = azurerm_resource_group.agent.name }
+output "api_name" { value = azurerm_container_app.api.name }
+output "api_id" { value = azurerm_container_app.api.id }
+output "api_revision" { value = azurerm_container_app.api.latest_revision_name }
+output "workspace_id" { value = azurerm_log_analytics_workspace.lab.id }
+output "workspace_customer_id" { value = azurerm_log_analytics_workspace.lab.workspace_id }
+output "dependency_timeout_ms" { value = var.dependency_timeout_ms }
