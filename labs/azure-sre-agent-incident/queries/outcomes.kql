@@ -1,0 +1,8 @@
+let api = "REPLACE_WITH_API_NAME";
+ContainerAppConsoleLogs
+| where TimeGenerated > ago(3h) and ContainerAppName == api
+| extend app = parse_json(Log)
+| where tostring(app.event) in ("checkout_ok", "dependency_timeout", "upstream_unavailable")
+| summarize Requests=count(), Errors=countif(toint(app.status) >= 500) by bin(TimeGenerated, 1m), RevisionName, TimeoutMs=toint(app.timeout_ms)
+| extend ErrorPercent=100.0 * Errors / Requests
+| order by TimeGenerated asc

@@ -1,0 +1,9 @@
+// Set the exact API name from terraform output -raw api_name.
+let api = "REPLACE_WITH_API_NAME";
+ContainerAppConsoleLogs
+| where TimeGenerated > ago(3h)
+| where ContainerAppName == api
+| extend app = parse_json(Log)
+| where tostring(app.event) in ("checkout_ok", "dependency_timeout", "upstream_unavailable", "startup")
+| project TimeGenerated, RevisionName, Event=tostring(app.event), RequestId=tostring(app.request_id), TimeoutMs=toint(app.timeout_ms), ElapsedMs=todouble(app.elapsed_ms), Status=toint(app.status)
+| order by TimeGenerated desc
