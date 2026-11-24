@@ -1,0 +1,8 @@
+// Front Door diagnostics intentionally use AzureDiagnostics in this lab.
+// Inspect Details for the actual origin, status, tracking reference and request URI fields.
+AzureDiagnostics
+| where TimeGenerated > ago(3h)
+| where ResourceProvider == "MICROSOFT.CDN"
+| where Category in ("FrontDoorAccessLog", "FrontDoorHealthProbeLog")
+| project TimeGenerated, Category, Resource, Details=pack_all()
+| order by TimeGenerated asc

@@ -1,0 +1,7 @@
+subscription_id       = "00000000-0000-0000-0000-000000000000"
+operator_ipv4_cidr    = "203.0.113.10/32" # Replace with your actual public IPv4.
+ssh_public_key        = "ssh-ed25519 REPLACE_WITH_YOUR_PUBLIC_KEY"
+primary_location     = "westeurope"
+secondary_location   = "northeurope"
+break_primary_probe  = false
+allow_direct_tests   = true

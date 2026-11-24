@@ -1,0 +1,6 @@
+// Set the actual UTC interval and use a nonce from probe.py for request-level evidence.
+AGWAccessLogs
+| where TimeGenerated > ago(3h)
+| where RequestUri contains "/checkout"
+| project TimeGenerated, _ResourceId, HttpStatus, RequestUri, Details=pack_all()
+| order by TimeGenerated asc

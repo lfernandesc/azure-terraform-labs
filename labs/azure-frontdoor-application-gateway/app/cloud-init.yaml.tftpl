@@ -1,0 +1,29 @@
+#cloud-config
+# Python 3 is included in this Ubuntu image; no package downloads required.
+write_files:
+  - path: /opt/delivery-lab/server.py
+    encoding: b64
+    content: ${server_b64}
+    permissions: '0644'
+  - path: /etc/systemd/system/delivery-lab.service
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=Disposable delivery lab HTTP backend
+      After=network.target
+      [Service]
+      User=nobody
+      Environment=LAB_REGION=${region}
+      Environment=DEPLOYMENT_ID=${deployment_id}
+      Environment=FRONTDOOR_ID=${frontdoor_id}
+      ExecStart=/usr/bin/python3 -u /opt/delivery-lab/server.py
+      Restart=on-failure
+      NoNewPrivileges=true
+      ProtectSystem=strict
+      ProtectHome=true
+      PrivateTmp=true
+      [Install]
+      WantedBy=multi-user.target
+runcmd:
+  - [systemctl, daemon-reload]
+  - [systemctl, enable, --now, delivery-lab.service]
